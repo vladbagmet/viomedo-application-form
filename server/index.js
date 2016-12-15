@@ -1,24 +1,44 @@
-/*jshint node:true*/
+'use strict';
 
-// To use it create some files under `mocks/`
-// e.g. `server/mocks/ember-hamsters.js`
-//
-// module.exports = function(app) {
-//   app.get('/ember-hamsters', function(req, res) {
-//     res.send('hello');
-//   });
-// };
+const app             = require('express')();
+const bodyParser      = require('body-parser');
+const config          = require('./config');
+const db              = require('./libs/db');
+const log             = require('./libs/log')(module);
+const responseHandler = require('./handlers/response');
 
-module.exports = function(app) {
-  var globSync   = require('glob').sync;
-  var mocks      = globSync('./mocks/**/*.js', { cwd: __dirname }).map(require);
-  var proxies    = globSync('./proxies/**/*.js', { cwd: __dirname }).map(require);
+app.use(bodyParser.json());
 
-  // Log proxy requests
-  var morgan  = require('morgan');
-  app.use(morgan('dev'));
+// Middleware to check content-type.
+app.use('/', function (req, res, next) {
+  if ( req.headers['content-type'] !== config.app.allowedContentType ) {
+    var error = {error: 'content-type expected: ' + config.app.allowedContentType};
+    log.debug(error);
+    responseHandler(res, {error, status: 400});
+  } else {
+    next();
+  }
+});
 
-  mocks.forEach(function(route) { route(app); });
-  proxies.forEach(function(route) { route(app); });
+// Middleware to validate ids.
+app.use('*/patients/:id', function (req, res, next) {
+  if ( parseInt(req.params.id, 10) > 0 ) {
+    next();
+  } else {
+    var error = {error: 'invalid id: ' + req.params.id};
+    log.debug(error);
+    responseHandler(res, {error, status: 400});
+  }
+});
 
-};
+app.use('/', require('./routes'));
+
+app.all('*', function(req, res) {
+  var error = {error: 'no route defined for ' + req.method + ' ' + req.url};
+  log.debug(error);
+  responseHandler(res, {error, status: 404});
+});
+
+app.listen(config.app.port, config.app.ip, function() {
+  log.info('server is listening on port ' + config.app.port);
+});
