@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <div class="formBlock">
+        <p class="article">Patient`s application form</p>
+        <form>
+            <span>Gender:</span>
+            {{radio-button id="men" value='male' checked=model.gender}}
+            <label for="men">Male</label>
+            {{radio-button id="women" value='female' checked=model.gender}}
+            <label for="women">Female</label>
+
+            {{input type="text" class="formField" id="firstName" placeholder="First name" value=model.firstName}}
+            {{input type="text" class="formField" id="lastName" placeholder="Last name" value=model.lastName}}
+            {{input type="text" class="formField" id="email" placeholder="E-mail" value=model.email}}
+            {{input type="text" class="formField" id="phone" placeholder="Phone" value=model.phone}}
+
+            {{input type="text" class="formField" id="age" placeholder="Age" value=model.age}}
+            {{input type="text" class="formField" id="zip" placeholder="Zip" value=model.zip}}
+            {{input type="checkbox" id="checkBtn" checked=model.termsAccepted}}
+            <label for="checkBtn">Accept terms of service</label>
+
+            <input {{action "addNewPatient"}} {{bind-attr disabled=state}} type="submit" class="submitBtn" value="Send">
+        </form>
+    </div>
+    <div class="popup">
+        <p class="article">Lorem ipsum dolore</p>
+    </div>
+</div>
+
+
+{{outlet}}

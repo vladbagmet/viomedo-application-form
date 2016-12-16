@@ -1,7 +1,7 @@
 'use strict';
 
 var router    = require('express').Router();
-const config  = require('../config'); // Later we can make path-indefferent require, NODE_PATH=. node index.js.
+const config  = require('../config/index'); // Later we can make path-indefferent require, NODE_PATH=. node app.js.
 
 // Define REST API endpoints
 config.app.servicingApiVersions.forEach(function(version) {

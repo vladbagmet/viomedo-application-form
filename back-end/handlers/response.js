@@ -17,14 +17,14 @@ function responseHandler(res, meta) {
   var message = {};
   var error = meta.error;
   var status = meta.status;
-  var data = (Object.keys(meta)).filter(stripPredefinedKeys)[0]; // Flexible var naming for API responses.
+  var data = (Object.keys(meta)).filter(stripPredefinedKeys)[0]; // Flexible data variable naming for API responses.
 
   if (error) {
     res.status(422);
-    error.status = 'error';
+    //error.status = 'error';
     message = error;
   } else {
-    message.status = 'success';
+    //message.status = 'success';
   }
 
   if (status) {

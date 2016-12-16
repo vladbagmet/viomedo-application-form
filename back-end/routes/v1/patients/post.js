@@ -5,6 +5,15 @@ const log             = require('../../../libs/log')(module);
 const responseHandler = require('../../../handlers/response');
 
 module.exports = function(req, res) {
+
+  //
+    console.log('req.body.patient: ' + JSON.stringify(req.body.patient));
+    console.log('typeof(req.body.patient): ' + typeof(req.body.patient));
+    console.log('');
+    console.log('req.body.patients: ' + JSON.stringify(req.body.patients));
+    console.log('typeof(req.body.patients): ' + typeof(req.body.patients));
+  //
+
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;

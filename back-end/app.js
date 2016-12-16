@@ -2,16 +2,18 @@
 
 const app             = require('express')();
 const bodyParser      = require('body-parser');
+const cors            = require('cors')
 const config          = require('./config');
 const db              = require('./libs/db');
 const log             = require('./libs/log')(module);
 const responseHandler = require('./handlers/response');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 // Middleware to check content-type.
 app.use('/', function (req, res, next) {
-  if ( req.headers['content-type'] !== config.app.allowedContentType ) {
+  if (req.headers['content-type'] !== config.app.allowedContentType) {
     var error = {error: 'content-type expected: ' + config.app.allowedContentType};
     log.debug(error);
     responseHandler(res, {error, status: 400});
@@ -22,7 +24,7 @@ app.use('/', function (req, res, next) {
 
 // Middleware to validate ids.
 app.use('*/patients/:id', function (req, res, next) {
-  if ( parseInt(req.params.id, 10) > 0 ) {
+  if (parseInt(req.params.id, 10) > 0) {
     next();
   } else {
     var error = {error: 'invalid id: ' + req.params.id};
@@ -33,12 +35,12 @@ app.use('*/patients/:id', function (req, res, next) {
 
 app.use('/', require('./routes'));
 
-app.all('*', function(req, res) {
+app.all('*', function (req, res) {
   var error = {error: 'no route defined for ' + req.method + ' ' + req.url};
   log.debug(error);
   responseHandler(res, {error, status: 404});
 });
 
-app.listen(config.app.port, config.app.ip, function() {
+app.listen(config.app.port, config.app.ip, function () {
   log.info('server is listening on port ' + config.app.port);
 });

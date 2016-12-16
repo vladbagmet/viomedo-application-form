@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose  = require('mongoose');
-const config    = require('../config');
+const config    = require('../config/index');
 const log       = require('./log')(module);
 const url       = 'mongodb://' + config.db.login + ':'
                     + config.db.password + '@'
@@ -17,8 +17,7 @@ module.exports = (function () {
     mongoose.Promise = require('bluebird'); // Mpromise (mongoose's default promise library) is slower and deprecated.
     mongoose.connect(url);
     db = mongoose.connection;
-    config.db.autoIncrement = require('mongoose-auto-increment');
-    config.db.autoIncrement.initialize(db);
+    require('mongoose-auto-increment').initialize(db);
 
     db.on('error', function (err) {
       log.error('error while connecting to db ' + config.db.database, err.message);
