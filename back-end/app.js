@@ -41,6 +41,8 @@ app.all('*', function (req, res) {
   responseHandler(res, {error, status: 404});
 });
 
-app.listen(config.app.port, config.app.ip, function () {
+const server = app.listen(config.app.port, config.app.ip, function () {
   log.info('server is listening on port ' + config.app.port);
 });
+
+module.exports = server; // To run tests against app.

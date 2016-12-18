@@ -16,9 +16,6 @@ module.exports = (function() {
         config = require('./development');
     }
 
-    config.db.login = process.argv[2];
-    config.db.password = process.argv[3];
-
     return config;
   }
 

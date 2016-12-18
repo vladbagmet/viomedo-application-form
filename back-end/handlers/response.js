@@ -21,7 +21,7 @@ function responseHandler(res, meta) {
 
   if (error) {
     res.status(422);
-    //error.status = 'error';
+    //error.status = 'error'; // May be usefull for debugging purposes
     message = error;
   } else {
     //message.status = 'success';
