@@ -1,35 +1,14 @@
 'use strict';
 
-const Patient         = require('../../../models/patient'); // Later we can make path-indefferent require.
+const Patient         = require('../../../models/patient'); // Later we can make path-indefferent require setting NODE_ENV.
 const log             = require('../../../libs/log')(module);
+const capitalizeStr   = require('../../../libs/ucfirst');
 const responseHandler = require('../../../handlers/response');
 
 module.exports = function(req, res) {
-
-  //
-    console.log('req.body.patient: ' + JSON.stringify(req.body.patient));
-    console.log('typeof(req.body.patient): ' + typeof(req.body.patient));
-    console.log('');
-    //console.log('req.body.patients: ' + JSON.stringify(req.body.patients));
-    //console.log('typeof(req.body.patients): ' + typeof(req.body.patients));
-  //
-
-  var firstName = req.body.patient.firstName;
-  var lastName = req.body.patient.lastName;
-
-  // var firstName = req.body.firstName;
-  // var lastName = req.body.lastName;
-  // var email = req.body.email;
-  // var gender = req.body.gender;
-  //
-  // var phone = req.body.phone;
-  // var age = req.body.age;
-  // var zip = req.body.zip;
-  // var termsAccepted = req.body.termsAccepted;
-
   // Pre-save data formatting.
-  if (firstName) req.body.patient.firstName = firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1);
-  if (lastName) req.body.patient.lastName = lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1);
+  if (req.body.patient.firstName) req.body.patient.firstName = capitalizeStr(req.body.patient.firstName);
+  if (req.body.patient.lastName) req.body.patient.lastName = capitalizeStr(req.body.patient.lastName);
 
   var patient = new Patient(req.body.patient);
   patient.save().then(fulfill, reject);

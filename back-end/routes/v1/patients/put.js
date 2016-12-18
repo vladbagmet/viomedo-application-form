@@ -5,11 +5,11 @@ const log             = require('../../../libs/log')(module);
 const responseHandler = require('../../../handlers/response');
 
 module.exports = function(req, res) {
-  // Define what patient`s details could be changed.
-  var email = req.body.email;
-  var phone = req.body.phone;
-  var age = req.body.age;
-  var zip = req.body.zip;
+  // Define what patient`s details could be changed. E.g. gender or first name could not be changed.
+  var email = req.body.patient.email;
+  var phone = req.body.patient.phone;
+  var age = req.body.patient.age;
+  var zip = req.body.patient.zip;
 
   Patient.findById(req.params.id).then(savePatient, reject);
 
