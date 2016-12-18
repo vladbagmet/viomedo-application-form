@@ -2,21 +2,24 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    //return {};
-    //return this.store.findAll('patient');
-    //return this.store.createRecord('patient');
-    return this.store.findAll('patient');
+    return {};
   },
 
   actions: {
-    addNewPatient(gender, firstName, lastName, email, phone, age, zip, termsAccepted) {
+    addNewPatient(model) {
+      var newPatient = {};
 
-      //alert('gender: ' + gender);
-      //alert('firstName: ' + firstName);
+      newPatient.gender = model.gender;
+      newPatient.firstName = model.firstName;
+      newPatient.lastName = model.lastName;
+      newPatient.email = model.email;
 
+      newPatient.phone = model.phone;
+      newPatient.age = model.age;
+      newPatient.zip = model.zip;
+      newPatient.termsAccepted = model.termsAccepted;
 
-      //
-      this.store.createRecord('patient', {gender, firstName, lastName, email, phone, age, zip, termsAccepted}).save().then(
+      this.store.createRecord('patient', newPatient).save().then(
         patient => {
           console.info('Response:', patient);
         },
@@ -24,40 +27,6 @@ export default Ember.Route.extend({
           console.error('Error from server:', error);
         }
       );
-
-
-      //let newPatient = this.modelFor(this.routeName);
-      //alert('addNewPatient button pressed! ' + JSON.stringify(newPatient) );
-
-
-      // newPatient.save.then(
-      //   patient => {
-      //     console.info('Response:', patient);
-      //   },
-      //   error => {
-      //     console.error('Error from server:', error);
-      //   }
-      // );
-
-
-      // let thing = this.modelFor(this.routeName);
-      // var self = this;
-      // thing.save().then(function() {
-      //   self.transitionTo('things');
-      // }).catch(function(reason) {
-      // });
-
-
-      // newPatient.save.then(
-      //   patient => {
-      //     console.info('Response:', patient);
-      //     this.controller.set('patient', this.store.createRecord('patient'));
-      //   },
-      //   error => {
-      //     console.error('Error from server:', error);
-      //   }
-      // );
-
     }
   }
 
