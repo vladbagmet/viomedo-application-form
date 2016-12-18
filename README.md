@@ -1,53 +1,32 @@
-# Viomedo-application-form
+# Viomedo application form
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This demo sends patient`s application to the server.
+
+Back-end implements REST API on Node.js/Express/MongoDB.
+Fron-end is implemented using Ember.js.
 
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
 
-* [Git](http://git-scm.com/)
+* [Ember](http://emberjs.com)
 * [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+* [Mocha](https://mochajs.org-cli.com/)
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `sudo npm i -g ember-cli`
+* `sudo npm i -g mocha`
+* `git clone https://github.com/vladbagmet/viomedo-application-form.git`
 * `cd viomedo-application-form`
 * `npm install`
 * `bower install`
 
 ## Running / Development
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
+* `node back-end/app.js` | starts back-end API at [http://localhost:3000](http://localhost:3000).
+* `ember server` | starts frontend. Visit app at [http://localhost:4200](http://localhost:4200).
 
 ### Running Tests
 
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+* `mocha -R spec back-end/tests/integration/routes.patients.test.js` | starts back-end integration tests
 
