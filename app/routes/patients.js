@@ -4,16 +4,19 @@ export default Ember.Route.extend({
   model() {
     //return {};
     //return this.store.findAll('patient');
-    return this.store.createRecord('patient');
+    //return this.store.createRecord('patient');
+    return this.store.findAll('patient');
   },
 
   actions: {
-    addNewPatient() {
-      let newPatient = this.modelFor(this.routeName);
-      alert('addNewPatient button pressed! ' + JSON.stringify(newPatient) );
+    addNewPatient(gender, firstName, lastName, email, phone, age, zip, termsAccepted) {
+
+      //alert('gender: ' + gender);
+      //alert('firstName: ' + firstName);
 
 
-      newPatient.save.then(
+      //
+      this.store.createRecord('patient', {gender, firstName, lastName, email, phone, age, zip, termsAccepted}).save().then(
         patient => {
           console.info('Response:', patient);
         },
@@ -21,6 +24,20 @@ export default Ember.Route.extend({
           console.error('Error from server:', error);
         }
       );
+
+
+      //let newPatient = this.modelFor(this.routeName);
+      //alert('addNewPatient button pressed! ' + JSON.stringify(newPatient) );
+
+
+      // newPatient.save.then(
+      //   patient => {
+      //     console.info('Response:', patient);
+      //   },
+      //   error => {
+      //     console.error('Error from server:', error);
+      //   }
+      // );
 
 
       // let thing = this.modelFor(this.routeName);

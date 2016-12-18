@@ -10,25 +10,28 @@ module.exports = function(req, res) {
     console.log('req.body.patient: ' + JSON.stringify(req.body.patient));
     console.log('typeof(req.body.patient): ' + typeof(req.body.patient));
     console.log('');
-    console.log('req.body.patients: ' + JSON.stringify(req.body.patients));
-    console.log('typeof(req.body.patients): ' + typeof(req.body.patients));
+    //console.log('req.body.patients: ' + JSON.stringify(req.body.patients));
+    //console.log('typeof(req.body.patients): ' + typeof(req.body.patients));
   //
 
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-  var email = req.body.email;
-  var gender = req.body.gender;
+  var firstName = req.body.patient.firstName;
+  var lastName = req.body.patient.lastName;
 
-  var phone = req.body.phone;
-  var age = req.body.age;
-  var zip = req.body.zip;
-  var termsAccepted = req.body.termsAccepted;
+  // var firstName = req.body.firstName;
+  // var lastName = req.body.lastName;
+  // var email = req.body.email;
+  // var gender = req.body.gender;
+  //
+  // var phone = req.body.phone;
+  // var age = req.body.age;
+  // var zip = req.body.zip;
+  // var termsAccepted = req.body.termsAccepted;
 
   // Pre-save data formatting.
-  if (firstName) firstName = firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1);
-  if (lastName) lastName = lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1);
+  if (firstName) req.body.patient.firstName = firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1);
+  if (lastName) req.body.patient.lastName = lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1);
 
-  var patient = new Patient({ gender, firstName, lastName, email, phone, age, zip, termsAccepted });
+  var patient = new Patient(req.body.patient);
   patient.save().then(fulfill, reject);
 
   function fulfill(patient) {
