@@ -20,11 +20,12 @@ export default Ember.Route.extend({
       newPatient.termsAccepted = model.termsAccepted;
 
       this.store.createRecord('patient', newPatient).save().then(
-        patient => {
-          console.info('Response:', patient);
+        () => {
+          this.transitionTo('success');
+
         },
-        error => {
-          console.error('Error from server:', error);
+        () => {
+          this.transitionTo('fail');
         }
       );
     }

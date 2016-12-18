@@ -113,10 +113,14 @@ input[type="checkbox"] {
 }
 
 .popup{
-  display: none;
+  display: block;
   margin: 5% auto;
   height: 500px;
   background-color: #dddddd;
   padding: 40px 20px;
+}
+
+.popup .article{
+  color: #19934C;
 }
 

@@ -10,6 +10,8 @@ Router.map(function() {
   this.route('patients', {
     path: '/'
   });
+  this.route('success');
+  this.route('fail');
 });
 
 export default Router;
