@@ -45,4 +45,8 @@ const server = app.listen(config.app.port, config.app.ip, function () {
   log.info('server is listening on port ' + config.app.port);
 });
 
-module.exports = server; // To run tests against app.
+// To run tests against app.
+if (module.parent) {
+  module.exports = server;
+}
+
