@@ -3,22 +3,22 @@
         <p class="article">Patient`s application form</p>
         <form>
             <span>Gender:</span>
-            {{radio-button id="men" value='male' checked=model.gender}}
+            {{radio-button id="men" value='male' checked=newPatient.gender}}
             <label for="men">Male</label>
-            {{radio-button id="women" value='female' checked=model.gender}}
+            {{radio-button id="women" value='female' checked=newPatient.gender}}
             <label for="women">Female</label>
 
-            {{input type="text" class="formField" id="firstName" placeholder="First name" value=model.firstName}}
-            {{input type="text" class="formField" id="lastName" placeholder="Last name" value=model.lastName}}
-            {{input type="text" class="formField" id="email" placeholder="E-mail" value=model.email}}
-            {{input type="text" class="formField" id="phone" placeholder="Phone" value=model.phone}}
+            {{input type="text" class="formField" id="firstName" placeholder="First name" value=newPatient.firstName}}
+            {{input type="text" class="formField" id="lastName" placeholder="Last name" value=newPatient.lastName}}
+            {{input type="text" class="formField" id="email" placeholder="E-mail" value=newPatient.email}}
+            {{input type="text" class="formField" id="phone" placeholder="Phone" value=newPatient.phone}}
 
-            {{input type="text" class="formField" id="age" placeholder="Age" value=model.age}}
-            {{input type="text" class="formField" id="zip" placeholder="Zip" value=model.zip}}
-            {{input type="checkbox" id="checkBtn" checked=model.termsAccepted}}
+            {{input type="text" class="formField" id="age" placeholder="Age" value=newPatient.age}}
+            {{input type="text" class="formField" id="zip" placeholder="Zip" value=newPatient.zip}}
+            {{input type="checkbox" id="checkBtn" checked=newPatient.termsAccepted}}
             <label for="checkBtn">Accept terms of service</label>
 
-            <input {{action "addNewPatient" model}} {{bind-attr disabled=state}} type="submit" class="submitBtn" value="Send">
+            <input {{action "addNewPatient" newPatient}} {{bind-attr disabled=state}} type="submit" class="submitBtn" value="Send">
         </form>
     </div>
 </div>

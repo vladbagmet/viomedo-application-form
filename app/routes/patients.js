@@ -5,21 +5,15 @@ export default Ember.Route.extend({
     return {};
   },
 
+  setupController(controller, model) {
+    this._super(controller, model);
+
+    controller.set('newPatient', this.store.createRecord('patient'));
+  },
+
   actions: {
-    addNewPatient(model) {
-      var newPatient = {};
-
-      newPatient.gender = model.gender;
-      newPatient.firstName = model.firstName;
-      newPatient.lastName = model.lastName;
-      newPatient.email = model.email;
-
-      newPatient.phone = model.phone;
-      newPatient.age = model.age;
-      newPatient.zip = model.zip;
-      newPatient.termsAccepted = model.termsAccepted;
-
-      this.store.createRecord('patient', newPatient).save().then(
+    addNewPatient(newPatient) {
+      newPatient.save().then(
         () => {
           this.transitionTo('success');
 
