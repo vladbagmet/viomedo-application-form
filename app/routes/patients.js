@@ -7,22 +7,26 @@ export default Ember.Route.extend({
 
   setupController(controller, model) {
     this._super(controller, model);
-
     controller.set('newPatient', this.store.createRecord('patient'));
   },
 
   actions: {
     addNewPatient(newPatient) {
-      newPatient.save().then(
-        () => {
-          this.transitionTo('success');
+      newPatient.validate().then(({ validations }) => {
 
-        },
-        () => {
-          this.transitionTo('fail');
-        }
-      );
+          if (validations.get('isValid')) {
+            newPatient.save().then(
+              () => {
+                this.transitionTo('success');
+              },
+
+              () => {
+                this.transitionTo('fail');
+              }
+            );
+          }
+
+      });
     }
   }
-
 });
